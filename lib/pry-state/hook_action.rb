@@ -22,14 +22,10 @@ class HookAction
   attr_reader :binding, :instance_variables, :local_variables
 
   def eval_and_print var, color
-    print Pry::Helpers::Text.send(color, var.to_s.ljust(25).truncate(25))
+    var_name_adjusted = var.to_s.ljust(25)
+    print Pry::Helpers::Text.send(color, truncate(var_name_adjusted, 25) )
     value = binding.eval(var.to_s)
-    if instance_variables.include?(:@_prev_binding) && value != prev_value(var)
-      print 'sd'
-      print_stringified_val_or_nil value
-    else
-      print_stringified_val_or_nil value
-    end
+    print_stringified_val_or_nil value
   end
 
   def print_stringified_val_or_nil value
@@ -37,7 +33,7 @@ class HookAction
     if value.empty?
       print Pry::Helpers::Text.red 'nil'
     else
-      print value.truncate(60)
+      print truncate(value, 60)
     end
     print "\n"
   end
@@ -48,6 +44,12 @@ class HookAction
     else
       value.to_s
     end
+  end
+
+  def truncate text, length
+    if text.nil? then return end
+    l = length - truncate_string.chars.to_a.size
+    (text.chars.to_a.size > length ? text.chars.to_a[0...l].join + "..." : text).to_s
   end
 
   # def prev_value var
