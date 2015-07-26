@@ -1,6 +1,8 @@
-# Pry::State
+# Pry-State
 
 Pry state is an extension of pry. With pry state you can see the values of the instance and local variables in a pry session.
+
+![SCREENSHOT] (https://cloud.githubusercontent.com/assets/1620848/8893566/c4a69ea6-33b2-11e5-90e4-d80cd498f135.png)
 
 ## Installation
 
