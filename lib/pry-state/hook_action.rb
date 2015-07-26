@@ -48,7 +48,7 @@ class HookAction
 
   def truncate text, length
     if text.nil? then return end
-    l = length - truncate_string.chars.to_a.size
+    l = length - "...".chars.to_a.size
     (text.chars.to_a.size > length ? text.chars.to_a[0...l].join + "..." : text).to_s
   end
 
