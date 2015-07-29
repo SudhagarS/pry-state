@@ -1,0 +1,4 @@
+--color
+--format documentation
+--drb
+--require spec_helper

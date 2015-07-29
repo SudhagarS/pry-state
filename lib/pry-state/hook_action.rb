@@ -1,6 +1,6 @@
 class HookAction
-  IGNORABLE_LOCAL_VARS = [:__, :_, :_ex_, :_pry_, :_out_, :_in_, :_dir_, :_file_, :prev_binding]
-  IGNORABLE_INSTANCE_VARS = [:@_request, :@_response, :@_routes, :@_prev_instance_state, :@_prev_local_state]
+  IGNORABLE_LOCAL_VARS = [:__, :_, :_ex_, :_pry_, :_out_, :_in_, :_dir_, :_file_]
+  IGNORABLE_INSTANCE_VARS = [:@_request, :@_response, :@_routes]
 
   def initialize binding
     @binding = binding
