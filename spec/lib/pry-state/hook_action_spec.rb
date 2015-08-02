@@ -13,6 +13,9 @@ RSpec.describe HookAction do
       expect(output).to include 1.to_s
       expect(output).to include '@b'
       expect(output).to include '"world"'
+      expect(output).to include '@c'
+      expect(output).to include "len:#{@c.count} #{@c}"
+      binding.pry
     end
   end
 end

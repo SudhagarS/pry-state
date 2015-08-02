@@ -41,6 +41,8 @@ class HookAction
   def stringify_value value
     if value.class == String
       "\"#{value}\""
+    elsif value.class == Array
+      "len:#{value.count} #{value}"
     else
       value.to_s
     end
