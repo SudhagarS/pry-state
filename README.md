@@ -1,5 +1,8 @@
 # Pry-State
 
+Why?
+When you are debugging, you care about the state of your program. You want to inspect which value is nil or which array is still empty or something similar. The default pry session doesn't give you all these info. You have to evaluate the variables in the prompt to really see what's going on. It is this problem that this extension of pry is trying to solve.
+
 Pry state is an extension of pry. With pry state you can see the values of the instance and local variables in a pry session.
 
 ![SCREENSHOT] (https://cloud.githubusercontent.com/assets/1620848/8893566/c4a69ea6-33b2-11e5-90e4-d80cd498f135.png)
