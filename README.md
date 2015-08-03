@@ -33,6 +33,11 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
+## Roadmap
+
+1. Indicate the CHANGE in value between pry sessions by different color.
+2. Associate the variables with numbers, and support command to evaluate the variable through these numbers. eg. command 's1' will show the value of first variable and so on.
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/pry-state/fork )
