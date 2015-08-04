@@ -10,7 +10,6 @@ RSpec.describe HookAction do
       a = 1
       @b = "world"
       @c = [1, 2, 4, 5]
-      a = 2
       # create a sticky locals hash with different @b value to get it in green color
       pry = OpenStruct.new(:config=>OpenStruct.new(:extra_sticky_locals=>{:pry_state_prev=>{:@b=>'wd'}}))
       output = capture_stdout do

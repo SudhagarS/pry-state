@@ -9,23 +9,20 @@ class HookAction
 
   def initialize binding, pry
     @binding, @pry = binding, pry
-    @instance_variables = @binding.eval('instance_variables')
-    @local_variables = @binding.eval('local_variables')
   end
 
   def act
-    puts pry.config.extra_sticky_locals[:pry_state_prev]
-    (instance_variables - IGNORABLE_INSTANCE_VARS).each do |var|
+    (binding.eval('instance_variables') - IGNORABLE_INSTANCE_VARS).each do |var|
       eval_and_print var, var_color: 'green'
     end
 
-    (local_variables - IGNORABLE_LOCAL_VARS).each do |var|
+    (binding.eval('local_variables') - IGNORABLE_LOCAL_VARS).each do |var|
       eval_and_print var, var_color: 'cyan'
     end
   end
 
   private
-  attr_reader :binding, :pry, :instance_variables, :local_variables
+  attr_reader :binding, :pry
 
   def eval_and_print var, var_color: 'green', value_color: 'white'
     value = binding.eval(var.to_s)
