@@ -9,9 +9,16 @@ class HookAction
 
   def initialize binding, pry
     @binding, @pry = binding, pry
+
   end
 
   def act
+    # when using guard, locals :e, :lib, :pry_state_prev get printed.
+    # this 'if' cuts them off.
+    if @binding.eval("self.class") == Object
+      return
+    end
+
     (binding.eval('instance_variables') - IGNORABLE_INSTANCE_VARS).each do |var|
       eval_and_print var, var_color: 'green'
     end
