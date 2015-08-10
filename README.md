@@ -35,7 +35,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Roadmap
 
-1. Indicate the CHANGE in value between pry sessions by different color.
+1. Indicate the CHANGE in value between pry sessions by different color. [DONE]
 2. Associate the variables with numbers, and support command to evaluate the variable through these numbers. eg. command 's1' will show the value of first variable and so on.
 
 ## Contributing
