@@ -19,11 +19,11 @@ class HookAction
       return
     end
 
-    (binding.eval('instance_variables') - IGNORABLE_INSTANCE_VARS).each do |var|
+    (binding.eval('instance_variables').sort - IGNORABLE_INSTANCE_VARS).each do |var|
       eval_and_print var, var_color: 'green'
     end
 
-    (binding.eval('local_variables') - IGNORABLE_LOCAL_VARS).each do |var|
+    (binding.eval('local_variables').sort - IGNORABLE_LOCAL_VARS).each do |var|
       eval_and_print var, var_color: 'cyan'
     end
   end
