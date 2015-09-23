@@ -28,9 +28,9 @@ module Printer
     if value.class == String
       "\"#{value}\""
     elsif value.class == Array
-      "len:#{value.count} #{value}"
+      "len:#{value.count} #{value.inspect}"
     else
-      value.to_s
+      value.inspect
     end
   end
 end
