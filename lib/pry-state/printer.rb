@@ -2,25 +2,32 @@ module Printer
   extend self
 
   def trunc_and_print var, value, var_color, value_color
-    var_name_adjusted = var.to_s.ljust(25)
-    print Pry::Helpers::Text.send(var_color, truncate(var_name_adjusted, 25) )
-    print_stringified_val_or_nil value, value_color
+    width = ENV['COLUMNS'] ? ENV['COLUMNS'].to_i : 80
+    # Ratios are 1:3 left:right
+    left_column_width = width / 4
+    left_column_width = left_column_width < 25 ? 25 : left_column_width
+    var_name_adjusted = var.to_s.ljust(left_column_width)
+    # Ensure at least 1 space between left and right columns
+    left_column_text = truncate(var_name_adjusted, left_column_width - 1) + ' '
+    print Pry::Helpers::Text.send(var_color, left_column_text)
+    print stringified_val_or_nil(value, value_color, width - left_column_width)
     print "\n"
   end
 
   private
   def truncate text, length
     if text.nil? then return end
-    l = length - "...".chars.to_a.size
+    l = length - "...".length
     (text.chars.to_a.size > length ? text.chars.to_a[0...l].join + "..." : text).to_s
   end
 
-  def print_stringified_val_or_nil value, color
+  def stringified_val_or_nil value, color, length
     value = stringify_value value
     if value.empty?
-      print Pry::Helpers::Text.red 'nil'
+      Pry::Helpers::Text.red 'nil'
     else
-      print Pry::Helpers::Text.send(color, truncate(value, 60) )
+      text = truncate(value, length)
+      Pry::Helpers::Text.send(color, text)
     end
   end
 
