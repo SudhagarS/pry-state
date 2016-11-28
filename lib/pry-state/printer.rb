@@ -7,6 +7,9 @@ module Printer
   COLUMN_RATIO = 3 # right column to left ratio
   LEFT_COLUMN_WIDTH = [(WIDTH / (COLUMN_RATIO + 1)).floor, MAX_LEFT_COLUMN_WIDTH].min
 
+  # Defaults to true
+  TRUNCATE = ENV['PRY_STATE_TRUNCATE'] != 'false'
+
   def trunc_and_print var, value, var_color, value_color
     var_name_adjusted = var.to_s.ljust(LEFT_COLUMN_WIDTH)
     # Ensure at least 1 space between left and right columns
@@ -19,6 +22,7 @@ module Printer
   private
   def truncate text, length
     if text.nil? then return end
+    return text unless ENV['TRUNCATE']
     l = length - "...".length
     (text.chars.to_a.size > length ? text.chars.to_a[0...l].join + "..." : text).to_s
   end
