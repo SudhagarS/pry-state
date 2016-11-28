@@ -1,16 +1,18 @@
 module Printer
   extend self
 
+  WIDTH = ENV['COLUMNS'] ? ENV['COLUMNS'].to_i : 80
+  MAX_LEFT_COLUMN_WIDTH = 25
+  # Ratios are 1:3 left:right, or 1/4 left
+  COLUMN_RATIO = 3 # right column to left ratio
+  LEFT_COLUMN_WIDTH = [(WIDTH / (COLUMN_RATIO + 1)).floor, MAX_LEFT_COLUMN_WIDTH].min
+
   def trunc_and_print var, value, var_color, value_color
-    width = ENV['COLUMNS'] ? ENV['COLUMNS'].to_i : 80
-    # Ratios are 1:3 left:right
-    left_column_width = width / 4
-    left_column_width = left_column_width < 25 ? 25 : left_column_width
-    var_name_adjusted = var.to_s.ljust(left_column_width)
+    var_name_adjusted = var.to_s.ljust(LEFT_COLUMN_WIDTH)
     # Ensure at least 1 space between left and right columns
-    left_column_text = truncate(var_name_adjusted, left_column_width - 1) + ' '
+    left_column_text = truncate(var_name_adjusted, LEFT_COLUMN_WIDTH - 1) + ' '
     print Pry::Helpers::Text.send(var_color, left_column_text)
-    print stringified_val_or_nil(value, value_color, width - left_column_width)
+    print stringified_val_or_nil(value, value_color, WIDTH - LEFT_COLUMN_WIDTH)
     print "\n"
   end
 
