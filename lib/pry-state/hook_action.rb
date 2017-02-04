@@ -19,19 +19,19 @@ class HookAction
       return
     end
 
-    if ENV['SHOW_GLOBAL_VARIABLES'] == '1'
+    if ENV['SHOW_GLOBAL_VARIABLES']
       (binding.eval('global_variables').sort - IGNORABLE_GLOBAL_VARS).each do |var|
         eval_and_print var, var_color: 'white', value_colore: 'yellow'
       end
     end
 
-    unless ENV['HIDE_INSTANCE_VARIABLES'] == '1'
+    unless ENV['HIDE_INSTANCE_VARIABLES']
       (binding.eval('instance_variables').sort - IGNORABLE_INSTANCE_VARS).each do |var|
         eval_and_print var, var_color: 'green'
       end
     end
 
-    unless ENV['HIDE_LOCAL_VARIABLES'] == '1'
+    unless ENV['HIDE_LOCAL_VARIABLES']
       (binding.eval('local_variables').sort - IGNORABLE_LOCAL_VARS).each do |var|
         eval_and_print var, var_color: 'cyan'
       end
