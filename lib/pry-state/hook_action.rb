@@ -6,10 +6,10 @@ class HookAction
   CONTROLLER_INSTANCE_VARIABLES = [:@_request, :@_response, :@_routes]
   RSPEC_INSTANCE_VARIABLES = [:@__inspect_output, :@__memoized]
   IGNORABLE_INSTANCE_VARS = CONTROLLER_INSTANCE_VARIABLES + RSPEC_INSTANCE_VARIABLES
+  IGNORABLE_GLOBAL_VARS = [:$@]
 
   def initialize binding, pry
     @binding, @pry = binding, pry
-
   end
 
   def act
@@ -19,12 +19,22 @@ class HookAction
       return
     end
 
-    (binding.eval('instance_variables').sort - IGNORABLE_INSTANCE_VARS).each do |var|
-      eval_and_print var, var_color: 'green'
+    if ENV['SHOW_GLOBAL_VARIABLES']
+      (binding.eval('global_variables').sort - IGNORABLE_GLOBAL_VARS).each do |var|
+        eval_and_print var, var_color: 'white', value_colore: 'yellow'
+      end
     end
 
-    (binding.eval('local_variables').sort - IGNORABLE_LOCAL_VARS).each do |var|
-      eval_and_print var, var_color: 'cyan'
+    unless ENV['HIDE_INSTANCE_VARIABLES']
+      (binding.eval('instance_variables').sort - IGNORABLE_INSTANCE_VARS).each do |var|
+        eval_and_print var, var_color: 'green'
+      end
+    end
+
+    unless ENV['HIDE_LOCAL_VARIABLES']
+      (binding.eval('local_variables').sort - IGNORABLE_LOCAL_VARS).each do |var|
+        eval_and_print var, var_color: 'cyan'
+      end
     end
   end
 
