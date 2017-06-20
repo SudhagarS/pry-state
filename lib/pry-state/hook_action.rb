@@ -46,7 +46,7 @@ class HookAction
     if value_changed? var, value
       var_color = "bright_#{var_color}"; value_color = 'bright_yellow'
     end
-    Printer.trunc_and_print var, value, var_color, value_color
+    PryState::Printer.trunc_and_print var, value, var_color, value_color
     stick_value! var, value # to refer the value in next
   end
 
