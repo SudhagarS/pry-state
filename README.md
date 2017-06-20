@@ -27,6 +27,11 @@ Or install it yourself as:
 
 There is no need to edit any configuration. After you have added the dependency in Gemfile, pry-state will add a hook to pry to listen to before_session events.
 
+## Customisation
+
+You can use environment variables `SHOW_GLOBAL_VARIABLES`, `HIDE_INSTANCE_VARIABLES` and `HIDE_LOCAL_VARIABLES` to customise the kind of variables shown.
+
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -40,7 +45,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/pry-state/fork )
+1. Fork it ( https://github.com/SudhagarS/pry-state/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
