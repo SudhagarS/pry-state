@@ -8,6 +8,8 @@ class PryState::ShowState < Pry::ClassCommand
       Usage: show-state
 
       show-state will show the current binding state.
+
+      Use `toggle-state` to turn on automatic state display on stack change.
     USAGE
   end
 
