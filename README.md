@@ -29,7 +29,7 @@ You can activate pry-state on the current binding with the command `show-state`.
 
 You can turn on the state display as the default by adding this to your `.pryrc`:
 
-`Pry.config.pry_state.hook_enabled = true`
+`Pry.config.state_hook_enabled = true`
 
 ## Customisation
 

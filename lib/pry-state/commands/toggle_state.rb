@@ -8,17 +8,17 @@ class PryState::ToggleState < Pry::ClassCommand
       Usage: toggle-state
 
       toggle-state will toggle automatic state display. Off by default.
-      Set `Pry.config.pry_state.hook_enabled = true` in your config file to
-      always turn it on.
+      Set `Pry.config.state_hook_enabled = true` in your .pryrc file to
+      permanently enable it.
 
-      Use `show-state` to just show the current state.
+      Use `show-state` to show the current state.
     USAGE
   end
 
   def process
-    if Pry.config.pry_state.hook_enabled ^= true
+    if Pry.config.state_hook_enabled ^= true
       output.puts "pry-state enabled."
-      HookAction.new(target, _pry_).act
+      HookAction.new(target, Pry).act
     else
       output.puts "pry-state disabled."
     end
