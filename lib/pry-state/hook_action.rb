@@ -1,4 +1,5 @@
 require 'pry-state/printer'
+require 'bool_parser'
 
 class HookAction
   IGNORABLE_LOCAL_VARS = [:__, :_, :_ex_, :_pry_, :_out_, :_in_, :_dir_, :_file_]
@@ -19,19 +20,19 @@ class HookAction
       return
     end
 
-    if ENV['SHOW_GLOBAL_VARIABLES']
+    if BoolParser.call(ENV['SHOW_GLOBAL_VARIABLES'], false)
       (binding.eval('global_variables').sort - IGNORABLE_GLOBAL_VARS).each do |var|
         eval_and_print var, var_color: 'white', value_colore: 'yellow'
       end
     end
 
-    unless ENV['HIDE_INSTANCE_VARIABLES']
+    unless BoolParser.call(ENV['HIDE_INSTANCE_VARIABLES'], false)
       (binding.eval('instance_variables').sort - IGNORABLE_INSTANCE_VARS).each do |var|
         eval_and_print var, var_color: 'green'
       end
     end
 
-    unless ENV['HIDE_LOCAL_VARIABLES']
+    unless BoolParser.call(ENV['HIDE_LOCAL_VARIABLES'], false)
       (binding.eval('local_variables').sort - IGNORABLE_LOCAL_VARS).each do |var|
         eval_and_print var, var_color: 'cyan'
       end

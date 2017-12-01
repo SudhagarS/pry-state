@@ -1,3 +1,5 @@
+require 'bool_parser'
+
 module PryState
   module Printer
     extend self
@@ -9,7 +11,7 @@ module PryState
     LEFT_COLUMN_WIDTH = [(WIDTH / (COLUMN_RATIO + 1)).floor, MAX_LEFT_COLUMN_WIDTH].min
 
     # Defaults to true
-    TRUNCATE = ENV['PRY_STATE_TRUNCATE'] != 'false'
+    TRUNCATE = BoolParser.call(ENV['PRY_STATE_TRUNCATE'], true)
 
     def trunc_and_print var, value, var_color, value_color
       var_name_adjusted = var.to_s.ljust(LEFT_COLUMN_WIDTH)
@@ -23,7 +25,7 @@ module PryState
     private
     def truncate text, length
       if text.nil? then return end
-      return text unless ENV['TRUNCATE']
+      return text unless TRUNCATE
       l = length - "...".length
       (text.chars.to_a.size > length ? text.chars.to_a[0...l].join + "..." : text).to_s
     end
