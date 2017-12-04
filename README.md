@@ -25,7 +25,11 @@ Or install it yourself as:
 
 ## Usage
 
-There is no need to edit any configuration. After you have added the dependency in Gemfile, pry-state will add a hook to pry to listen to before_session events.
+You can activate pry-state on the current binding with the command `show-state`. You can also toggle displaying the state at each binding change event with `toggle-state`. This is useful for debugging, such as with [pry-byebug](https://github.com/deivid-rodriguez/pry-byebug).
+
+You can turn on the state display as the default by adding this to your `.pryrc`:
+
+`Pry.config.state_hook_enabled = true`
 
 ## Customisation
 

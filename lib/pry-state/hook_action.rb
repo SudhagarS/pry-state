@@ -12,7 +12,9 @@ class HookAction
     @binding, @pry = binding, pry
   end
 
-  def act
+  def act(force = false)
+    return unless force || Pry.config.state_hook_enabled
+
     # when using guard, locals :e, :lib, :pry_state_prev get printed.
     # this 'if' cuts them off.
     if @binding.eval("self.class") == Object

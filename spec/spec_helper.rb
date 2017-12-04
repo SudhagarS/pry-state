@@ -19,16 +19,21 @@ RSpec.configure do |config|
   config.profile_examples = 10
   config.order = :random
 
+  config.before do
+    # ensure that Pry doesn't capture the state from previous tests
+    Pry.config.extra_sticky_locals = {}
+  end
+
   Kernel.srand config.seed
 end
 
 def capture_stdout(&blk)
-  old = $stdout
-  $stdout = fake = StringIO.new
+  old_out = $stdout
+  $stdout = Pry.output = fake = StringIO.new
   blk.call
   fake.string
 ensure
-  $stdout = old
+  $stdout = Pry.output = old_out
 end
 
 def capture_stderr(&blk)
@@ -38,4 +43,14 @@ def capture_stderr(&blk)
   fake.string
 ensure
   $stderr = old
+end
+
+def capture_pry_command(command, cmd_binding=binding)
+  old_in = Pry.input
+  Pry.input = StringIO.new("#{command}\nexit-all")
+  capture_stdout do
+    Pry.start_without_pry_nav(cmd_binding, hooks: Pry::Hooks.new)
+  end
+ensure
+  Pry.input = old_in
 end
